@@ -28,10 +28,11 @@ SELECT annee_mise_circ FROM vehicule AS V
 INNER JOIN client AS C ON V.num_client = C.num_sec_sociale
 WHERE nom LIKE "Rudoux";
 
-SELECT annee_mise_circ FROM vehicule
-WHERE num_immat IN (
-	SELECT nom FROM client);
-
 # 5. Les numéros des sinistres dont le montant est inconnu.
+SELECT id_sinistre FROM sinistre
+WHERE montant IS NULL;
 
 # 6. Les noms des conducteurs responsables des sinistres 200110 à 200201.
+SELECT nom, prenom FROM client AS C
+INNER JOIN sinistre AS S ON C.num_sec_sociale = S.num_client
+WHERE id_sinistre = "200110" OR id_sinistre = "200201";
